@@ -90,7 +90,7 @@ watch(filters, axiosItems)
     <div class="p-10">
       <div class="grid grid-col sm:grid grid-col md:flex justify-between items-center gap-5">
         <h2 class=" font-bold mb-8 text-2xl">Выгодно!</h2>
-        <div class="grid grid-col sm:grid grid-col md:flex gap-4">
+        <div class="grid grid-col md:flex gap-4">
           <select
             @change="onChange"
             class="py-3 px-2 border rounded-md outline-none focus:border-gray-500"
