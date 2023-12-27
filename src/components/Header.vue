@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <ul class="flex items-center gap-10">
+    <ul class="grid grid-col sm:flex items-center gap-5 md:flex items-center">
       <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
         <img src="/cart.svg" alt="cart" />
         <b>400</b>
