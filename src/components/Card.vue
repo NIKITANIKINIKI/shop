@@ -17,17 +17,19 @@
 
 
 <script setup>
-import {inject} from 'vue'
 
-defineProps({
+
+const props= defineProps({
+    id:Number,
     imgUrl: String,
     title: String,
     price: Number,
     isFan: Boolean,
     isAdd: Boolean,
-    onClickFan: Function
+    onClickFan: Function,
+    onClickAdd:Function
 })
 
 
-const addToFavorite=inject('addToFavorite')
+
 </script>

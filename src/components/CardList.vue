@@ -1,11 +1,16 @@
 <script setup>
 import Card from './Card.vue'
+import {inject} from 'vue'
+
+// const addToFavorite=inject('addToFavorite')
 
 
 defineProps({
   items: Array
 })
 
+
+const emit=defineEmits('addToFavorite')
 
 </script>
 
@@ -18,8 +23,9 @@ defineProps({
     :title="item.title" 
     :price="item.price" 
     :isAdd="true" 
-    :isFan="true"
+    :isFan="item.isFan"
     :onClickAdd="onClickAdd"
+    :onClickFan="() => emit('addToFavorite', item)"
     ></Card>
   </div>
 </template>

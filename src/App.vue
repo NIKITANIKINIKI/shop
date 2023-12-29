@@ -7,6 +7,7 @@ import CardList from './components/CardList.vue'
 import Drawer from './components/Drawer.vue'
 
 const items = ref([])
+
 const filters = reactive({
   sortBy: 'title',
   searchQuery: ''
@@ -24,7 +25,19 @@ const onChangeInput = (event) => {
 const axiosFavorites = async () => {
   try {
     const { data } = await axios.get('https://8106ad2f73305504.mokky.dev/favorites')
-    items.value = data
+    items.value = items.value.map((item) => {
+      const favorite = data.find((el) => el.parentId == item.id)
+
+      if (!favorite) {
+        return item
+      }
+
+      return {
+        ...item,
+        isFan: true,
+        favoriteId: favorite.id
+      }
+    })
   } catch (e) {
     console.log(e)
   }
@@ -53,15 +66,35 @@ const axiosItems = async () => {
   }
 }
 
+const addToFavorite = async (item) => {
+  try {
+    if(!item.isFan){
+      const el={
+      parentId:item.id
+    }
 
-const addToFavorite= async(item) =>{
-  item.isFan=true
+    item.isFan=true
+
+    const {data}= await axios.post('https://8106ad2f73305504.mokky.dev/favorites', el)
+
+    item.favoriteId=data.id
+    }
+    else{
+      await axios.delete(`https://8106ad2f73305504.mokky.dev/favorites/${item.favoriteId}`)
+      item.isFan=false
+      item.favoriteId=null
+    }
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-provide('addToFavorite', addToFavorite)
+// provide('addToFavorite', addToFavorite)
 
-
-onMounted(axiosItems)
+onMounted(async () => {
+  await axiosItems()
+  await axiosFavorites()
+})
 watch(filters, axiosItems)
 
 // fetch('https://604781a0efa572c1.mokky.dev/items')
@@ -89,11 +122,11 @@ watch(filters, axiosItems)
     <Header></Header>
     <div class="p-10">
       <div class="grid grid-col sm:grid grid-col md:flex justify-between items-center gap-5">
-        <h2 class=" font-bold mb-8 text-2xl">Выгодно!</h2>
-        <div class="grid grid-col md:flex gap-4">
+        <h2 class="font-bold mb-8 text-2xl">Выгодно!</h2>
+        <div class="grid grid-col md:flex gap-5">
           <select
             @change="onChange"
-            class="py-3 px-2 border rounded-md outline-none focus:border-gray-500"
+            class="py-3 px-1 border rounded-md outline-none focus:border-gray-500"
           >
             <option value="name">По названию</option>
             <option value="-price">По цене(дорогие)</option>
@@ -112,7 +145,7 @@ watch(filters, axiosItems)
         </div>
       </div>
       <div class="mt-5">
-        <CardList :items="items"></CardList>
+        <CardList :items="items" @addToFavorite="addToFavorite"></CardList>
       </div>
     </div>
   </div>
