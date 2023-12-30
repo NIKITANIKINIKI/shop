@@ -7,11 +7,35 @@ import CardList from './components/CardList.vue'
 import Drawer from './components/Drawer.vue'
 
 const items = ref([])
+const basket=ref(false)
+const cart=ref([])
 
 const filters = reactive({
   sortBy: 'title',
   searchQuery: ''
 })
+
+
+const addToCart=(item) =>{
+  if(!item.isAdd){
+    cart.value.push(item)
+    item.isAdd=true
+  }
+  else{
+    cart.value.splice(cart.value.indexOf(item), 1)
+    item.isAdd=false
+  }
+
+  console.log(cart.value)
+}
+
+const openBasket=() =>{
+  basket.value=true
+}
+
+const closeBasket=() =>{
+  basket.value=false
+}
 
 const onChange = (event) => {
   filters.sortBy = event.target.value
@@ -53,7 +77,7 @@ const axiosItems = async () => {
       params.title = `*${filters.searchQuery}*`
     }
 
-    const { data } = await axios.get(`https://604781a0efa572c1.mokky.dev/items`, {
+    const { data } = await axios.get(`https://8106ad2f73305504.mokky.dev/items`, {
       params
     })
     items.value = data.map((el) => ({
@@ -90,6 +114,9 @@ const addToFavorite = async (item) => {
 }
 
 // provide('addToFavorite', addToFavorite)
+provide('closeBasket',closeBasket)
+provide('cart', cart)
+
 
 onMounted(async () => {
   await axiosItems()
@@ -117,9 +144,9 @@ watch(filters, axiosItems)
 </script>
 
 <template>
-  <!-- <Drawer/> -->
+  <Drawer v-if="basket"/>
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-14">
-    <Header></Header>
+    <Header @openBasket="openBasket"></Header>
     <div class="p-10">
       <div class="grid grid-col sm:grid grid-col md:flex justify-between items-center gap-5">
         <h2 class="font-bold mb-8 text-2xl">Выгодно!</h2>
@@ -145,7 +172,7 @@ watch(filters, axiosItems)
         </div>
       </div>
       <div class="mt-5">
-        <CardList :items="items" @addToFavorite="addToFavorite"></CardList>
+        <CardList :items="items" @addToFavorite="addToFavorite" @addToCart="addToCart"></CardList>
       </div>
     </div>
   </div>

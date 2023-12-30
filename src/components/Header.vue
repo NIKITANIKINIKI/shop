@@ -9,8 +9,8 @@
     </div>
 
     <ul class="grid grid-col sm:flex items-center md:flex items-center">
-      <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-        <img class="ml-3" src="/cart.svg" alt="cart" />
+      <li @click="() => emit('openBasket')" class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
+        <img  class="ml-3" src="/cart.svg" alt="cart" />
         <b>400</b>
       </li>
       <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
@@ -24,3 +24,10 @@
     </ul>
   </header>
 </template>
+
+
+<script setup>
+
+const emit=defineEmits('openBasket')
+
+</script>

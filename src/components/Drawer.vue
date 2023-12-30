@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-50"></div>
+  <div @click="onClickBasket" class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-50"></div>
   <div class="bg-white z-20 fixed top-0 right-0 w-96 h-full p-8">
     <DrawerHead/>
     <CartList/>
@@ -28,4 +28,7 @@
 <script setup>
 import DrawerHead from './DrawerHead.vue'
 import CartList from './CartList.vue'
+import {inject} from 'vue'
+
+const onClickBasket=inject('closeBasket')
 </script>
