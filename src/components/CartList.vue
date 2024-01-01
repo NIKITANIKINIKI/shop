@@ -1,14 +1,12 @@
 <template>
-<div class="grid grid-cols gap-5">
+<div class="grid grid-cols gap-5 " v-auto-animate>
     <CartItem
     v-for="item in cart"
     :key="item.id"
     :imgUrl="item.imageUrl" 
     :title="item.title" 
-    :price="item.price" 
-    :isAdd="item.isAdd" 
-    :isFan="item.isFan"/>
-    
+    :price="item.price"
+    @clickDelete="() => onDeleteInBasket(item)"/>
 </div> 
 </template>
 
@@ -18,7 +16,6 @@ import {inject} from 'vue'
 
 const cart=inject('cart')
 
-console.log(cart)
-
+const onDeleteInBasket=inject('onDeleteInBasket')
 
 </script>

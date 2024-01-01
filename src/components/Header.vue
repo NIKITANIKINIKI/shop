@@ -8,17 +8,17 @@
       </div>
     </div>
 
-    <ul class="grid grid-col sm:flex items-center md:flex items-center">
-      <li @click="() => emit('openBasket')" class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-        <img  class="ml-3" src="/cart.svg" alt="cart" />
-        <b>400</b>
+    <ul class="grid grid-col gap-3 sm:flex items-center gap-3 md:flex items-center gap-3">
+      <li @click="() => emit('openBasket')" class="flex items-center cursor-pointer text-gray-500 hover:text-black">
+        <img  class="mr-2" src="/cart.svg" alt="cart" />
+        <b>{{ superPrice }}</b>
       </li>
-      <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-        <img class="ml-3" src="/heart.svg" alt="heart" />
-        <b>Закладки</b>
+      <li class="flex items-center cursor-pointer text-gray-500 hover:text-black">
+        <img class="mr-2" src="/heart.svg" alt="heart" />
+        <b class="mr-1">Закладки</b>
       </li>
-      <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-        <img class="ml-3" src="/profile.svg" alt="profile" />
+      <li class="flex items-center cursor-pointer  text-gray-500 hover:text-black">
+        <img class="mr-2" src="/profile.svg" alt="profile" />
         <b>biba</b>
       </li>
     </ul>
@@ -29,5 +29,10 @@
 <script setup>
 
 const emit=defineEmits('openBasket')
+
+defineProps({
+  superPrice:Number
+})
+
 
 </script>
