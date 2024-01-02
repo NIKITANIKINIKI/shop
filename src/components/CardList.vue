@@ -1,8 +1,6 @@
 <script setup>
 import Card from './Card.vue'
-import {inject} from 'vue'
 
-// const addToFavorite=inject('addToFavorite')
 
 
 defineProps({
