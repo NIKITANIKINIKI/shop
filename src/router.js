@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from './pages/Home.vue'
 import Favorite from './pages/Favorite.vue'
 
-
 const routes=[
     {
         path:'/',

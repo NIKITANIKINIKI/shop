@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import Header from './components/Header.vue'
 import Drawer from './components/Drawer.vue'
+import Entrance from './components/Entrance.vue'
 
 
 const basket = ref(false)
@@ -95,6 +96,7 @@ watch(
 </script>
 
 <template>
+  <Entrance/>
   <Drawer
     v-if="basket"
     :taxPrice="taxPrice"
